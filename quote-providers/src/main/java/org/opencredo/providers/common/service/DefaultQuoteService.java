@@ -21,7 +21,7 @@ public class DefaultQuoteService implements QuoteService {
 
     public Quote createQuote(String providerName,Person applicant, Car car) {
         MonetaryAmount quotedAnnualPrice = new MonetaryAmount(
-                new BigDecimal(quoteAmountGenerator.nextInt()));
+                new BigDecimal(quoteAmountGenerator.nextInt(1000)));
         Quote quote = new Quote(providerName, applicant, car, quotedAnnualPrice);
         quotes.put(sequence.incrementAndGet(), quote);
         return quote;
