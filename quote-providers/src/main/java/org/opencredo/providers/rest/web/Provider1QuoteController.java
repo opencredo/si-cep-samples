@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class Provider1QuoteController {
 
+    public static final String PROVIDER_NAME= "Provider One";
+
     @Autowired
     private QuoteService quoteService;
 
@@ -22,7 +24,7 @@ public class Provider1QuoteController {
     public HttpEntity<Quote> createQuote(@RequestBody CreateQuoteRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        Quote quote = quoteService.createQuote(getPerson(request), getCar(request));
+        Quote quote = quoteService.createQuote(PROVIDER_NAME,getPerson(request), getCar(request));
         ResponseEntity<Quote> response = new ResponseEntity<Quote>(quote, HttpStatus.CREATED);
         return response;
     }

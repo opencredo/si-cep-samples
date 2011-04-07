@@ -12,6 +12,8 @@ import org.w3c.dom.Document;
 
 public class Provider2MessageProcessor {
 
+    public static final String PROVIDER_NAME= "Provider Two";
+
     private final QuoteService quoteService;
 
     public Provider2MessageProcessor(QuoteService quoteService) {
@@ -21,9 +23,8 @@ public class Provider2MessageProcessor {
     public Quote getQuote(Document document) {
         Person applicant = getPerson(document);
         Car car = getCar(document);
-        return quoteService.createQuote(applicant, car);
+        return quoteService.createQuote(PROVIDER_NAME, applicant, car);
     }
-
 
     public Car getCar(Document document) {
         String carReg = getCarReg.evaluateAsString(document);

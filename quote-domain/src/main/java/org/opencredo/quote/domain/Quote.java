@@ -9,10 +9,13 @@ public class Quote {
 
     private final MonetaryAmount quotedAnnualPrice;
 
-    public Quote(Person applicant, Car applicantsCar, MonetaryAmount quotedAnnualPrice) {
+    private final String providerName;
+
+    public Quote( String providerName, Person applicant, Car applicantsCar, MonetaryAmount quotedAnnualPrice) {
         this.applicant = applicant;
         this.applicantsCar = applicantsCar;
         this.quotedAnnualPrice = quotedAnnualPrice;
+        this.providerName = providerName;
     }
 
     public Person getApplicant() {
@@ -25,5 +28,9 @@ public class Quote {
 
     public MonetaryAmount getQuotedAnnualPrice() {
         return quotedAnnualPrice;
+    }
+
+    public String getProviderName() {
+        return providerName;
     }
 }

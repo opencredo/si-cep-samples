@@ -21,6 +21,8 @@ import java.math.BigDecimal;
 
 public class Provider2MessageProcessorTest {
 
+    String testProvider = "testProvider";
+
     Provider2MessageProcessor messageProcessor;
 
     QuoteService mockQuoteService;
@@ -37,11 +39,11 @@ public class Provider2MessageProcessorTest {
 
     @Test
     public void testValidRequest() throws Exception {
-        Quote defaultQuote = new Quote(null, null, new MonetaryAmount(defaultQuoteAmount));
-        when(mockQuoteService.createQuote(any(Person.class), any(Car.class))).thenAnswer(new Answer<Quote>() {
+        when(mockQuoteService.createQuote(any(String.class), any(Person.class), any(Car.class))).thenAnswer(new Answer<Quote>() {
             public Quote answer(InvocationOnMock invocation) throws Throwable {
-                return new Quote((Person) invocation.getArguments()[0],
-                        (Car) invocation.getArguments()[1],
+                return new Quote((String) invocation.getArguments()[0],
+                        (Person) invocation.getArguments()[1],
+                        (Car) invocation.getArguments()[2],
                         new MonetaryAmount(defaultQuoteAmount));
             }
         });

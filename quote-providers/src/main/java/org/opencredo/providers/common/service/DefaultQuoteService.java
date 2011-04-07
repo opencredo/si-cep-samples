@@ -19,10 +19,10 @@ public class DefaultQuoteService implements QuoteService {
     private final AtomicLong sequence = new AtomicLong(0);
     private final Map<Long, Quote> quotes = new ConcurrentHashMap<Long, Quote>();
 
-    public Quote createQuote(Person applicant, Car car) {
+    public Quote createQuote(String providerName,Person applicant, Car car) {
         MonetaryAmount quotedAnnualPrice = new MonetaryAmount(
                 new BigDecimal(quoteAmountGenerator.nextInt()));
-        Quote quote = new Quote(applicant, car, quotedAnnualPrice);
+        Quote quote = new Quote(providerName, applicant, car, quotedAnnualPrice);
         quotes.put(sequence.incrementAndGet(), quote);
         return quote;
     }

@@ -6,5 +6,5 @@ import org.opencredo.quote.domain.Quote;
 
 public interface QuoteService {
 
-    Quote createQuote(Person applicant, Car car);
+    Quote createQuote(String providerName,Person applicant, Car car);
 }
