@@ -1,6 +1,8 @@
 package org.opencredo.quote.domain;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
 
     private final int age;
 
@@ -27,5 +29,14 @@ public class Person {
 
     public int getAnnualMileage() {
         return annualMileage;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "age=" + age +
+                ", yearsOfNoClaimsBonus=" + yearsOfNoClaimsBonus +
+                ", annualMileage=" + annualMileage +
+                '}';
     }
 }

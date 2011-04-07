@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:amq="http://activemq.apache.org/schema/core"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:context="http://www.springframework.org/schema/context"
 
-    <amq:broker useJmx="false" persistent="false">
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/jms
+       http://www.springframework.org/schema/jms/spring-jms.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://activemq.apache.org/schema/core
+       http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+    <context:annotation-config />
+
+    <amq:broker useJmx="false" persistent="false" >
         <amq:transportConnectors>
             <amq:transportConnector uri="tcp://localhost:61616"/>
         </amq:transportConnectors>
     </amq:broker>
+
+    <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <constructor-arg value="tcp://localhost:61616"/>
+    </bean>
+
+    <bean id="providerTwo" class="org.opencredo.providers.jms.Provider2MessageProcessor"/>
+
+    <jms:listener-container connection-factory="jmsConnectionFactory" >
+        <jms:listener destination="quoteRequestQueue" ref="providerTwo" method="getQuote"
+                      response-destination="quoteResponseQueue"/>
+    </jms:listener-container>
+
+
 </beans>

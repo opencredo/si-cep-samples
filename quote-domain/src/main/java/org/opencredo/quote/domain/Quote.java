@@ -1,7 +1,9 @@
 package org.opencredo.quote.domain;
 
 
-public class Quote {
+import java.io.Serializable;
+
+public class Quote implements Serializable {
 
     private final Person applicant;
 
@@ -32,5 +34,15 @@ public class Quote {
 
     public String getProviderName() {
         return providerName;
+    }
+
+    @Override
+    public String toString() {
+        return "Quote{" +
+                "applicant=" + applicant +
+                ", applicantsCar=" + applicantsCar +
+                ", quotedAnnualPrice=" + quotedAnnualPrice +
+                ", providerName='" + providerName + '\'' +
+                '}';
     }
 }

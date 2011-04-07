@@ -1,9 +1,10 @@
 package org.opencredo.quote.domain;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class MonetaryAmount {
+public class MonetaryAmount implements Serializable {
 
     private final BigDecimal amount;
 
@@ -30,6 +31,13 @@ public class MonetaryAmount {
     @Override
     public int hashCode() {
         return amount != null ? amount.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "MonetaryAmount{" +
+                "amount=" + amount +
+                '}';
     }
 }
 

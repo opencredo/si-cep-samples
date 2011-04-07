@@ -1,7 +1,9 @@
 package org.opencredo.quote.domain;
 
 
-public class Car {
+import java.io.Serializable;
+
+public class Car implements Serializable {
 
     private final String registration;
 
@@ -25,5 +27,14 @@ public class Car {
 
     public MonetaryAmount getValueOfCar() {
         return valueOfCar;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "registration='" + registration + '\'' +
+                ", makeAndModel='" + makeAndModel + '\'' +
+                ", valueOfCar=" + valueOfCar +
+                '}';
     }
 }
