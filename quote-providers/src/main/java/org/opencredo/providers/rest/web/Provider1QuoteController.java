@@ -1,5 +1,6 @@
 package org.opencredo.providers.rest.web;
 
+import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing;
 import org.opencredo.providers.common.service.QuoteService;
 import org.opencredo.quote.domain.Car;
 import org.opencredo.quote.domain.MonetaryAmount;
@@ -15,17 +16,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class Provider1QuoteController {
 
-    public static final String PROVIDER_NAME= "Provider One";
+    public static final String PROVIDER_NAME = "Provider One";
 
     @Autowired
     private QuoteService quoteService;
 
     @RequestMapping(value = "/quote", method = RequestMethod.POST)
-    public HttpEntity<Quote> createQuote(@RequestBody CreateQuoteRequest request) {
+    public HttpEntity<CreateQuoteResponse> createQuote(@RequestBody CreateQuoteRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        Quote quote = quoteService.createQuote(PROVIDER_NAME,getPerson(request), getCar(request));
-        ResponseEntity<Quote> response = new ResponseEntity<Quote>(quote, HttpStatus.CREATED);
+        Quote quote = quoteService.createQuote(PROVIDER_NAME, getPerson(request), getCar(request));
+        ResponseEntity<CreateQuoteResponse> response = new ResponseEntity<CreateQuoteResponse>(mapToDTO(quote), headers, HttpStatus.CREATED);
+        return response;
+    }
+
+
+    protected CreateQuoteResponse mapToDTO(Quote quote) {
+        CreateQuoteResponse response = new CreateQuoteResponse();
+
+        CarDTO carDTO = new CarDTO();
+        carDTO.setMakeAndModel(quote.getApplicantsCar().getMakeAndModel());
+        carDTO.setRegistration(quote.getApplicantsCar().getRegistration());
+        carDTO.setValueOfCar(
+                new MonetaryAmountDTO(quote.getApplicantsCar().getValueOfCar().asBigDecimal()));
+        response.setCarDTO(carDTO);
+
+        PersonDTO personDTO = new PersonDTO();
+        personDTO.setAge(quote.getApplicant().getAge());
+        personDTO.setAnnualMileage(quote.getApplicant().getAnnualMileage());
+        personDTO.setYearsOfNoClaimsBonus(quote.getApplicant().getYearsOfNoClaimsBonus());
+        response.setAplicant(personDTO);
+
+        response.setMonetaryAmountDTO(new MonetaryAmountDTO(quote.getQuotedAnnualPrice().asBigDecimal()));
+
         return response;
     }
 

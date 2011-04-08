@@ -16,6 +16,11 @@ public class MonetaryAmount implements Serializable {
         this.amount = new BigDecimal(amount);
     }
 
+    public BigDecimal asBigDecimal(){
+        return amount;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
