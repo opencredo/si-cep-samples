@@ -1,4 +1,4 @@
-package org.opencredo.providers.rest.web;
+package org.opencredo.quote.domain.dto;
 
 public class CreateQuoteResponse {
 

@@ -1,6 +1,4 @@
-package org.opencredo.providers.rest.web;
-
-import org.opencredo.quote.domain.MonetaryAmount;
+package org.opencredo.quote.domain.dto;
 
 public class CarDTO {
 

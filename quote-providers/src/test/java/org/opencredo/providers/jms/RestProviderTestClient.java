@@ -1,7 +1,6 @@
 package org.opencredo.providers.jms;
 
-import org.opencredo.providers.rest.web.*;
-import org.opencredo.quote.domain.Quote;
+import org.opencredo.quote.domain.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.HttpEntity;

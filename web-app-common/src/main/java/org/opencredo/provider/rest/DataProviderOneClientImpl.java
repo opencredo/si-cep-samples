@@ -1,14 +1,13 @@
 package org.opencredo.provider.rest;
 
 import org.opencredo.provider.DataProviderClient;
-import org.opencredo.providers.rest.web.*;
 import org.opencredo.quote.domain.*;
+import org.opencredo.quote.domain.dto.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestOperations;
 
-import java.math.BigDecimal;
 import java.net.URI;
 
 public class DataProviderOneClientImpl implements DataProviderClient {
