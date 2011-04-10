@@ -23,7 +23,6 @@
         </dependency>
 
 
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -42,38 +41,33 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
-
-
         <dependency>
-                   <groupId>org.codehaus.jackson</groupId>
-                   <artifactId>jackson-core-asl</artifactId>
-                   <version>1.7.1</version>
-               </dependency>
-               <dependency>
-                   <groupId>org.codehaus.jackson</groupId>
-                   <artifactId>jackson-mapper-asl</artifactId>
-                   <version>1.7.1</version>
-               </dependency>
-               <dependency>
-                   <groupId>org.apache.activemq</groupId>
-                   <artifactId>activemq-all</artifactId>
-                   <version>5.2.0</version>
-               </dependency>
-               <dependency>
-                   <groupId>org.apache.xbean</groupId>
-                   <artifactId>xbean-spring</artifactId>
-                   <version>3.7</version>
-               </dependency>
-               <dependency>
-                   <groupId>org.springframework</groupId>
-                   <artifactId>spring-jms</artifactId>
-               </dependency>
-               <dependency>
-                   <groupId>log4j</groupId>
-                   <artifactId>log4j</artifactId>
-               </dependency>
-
-
-
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-spring</artifactId>
+            <version>3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
     </dependencies>
 </project>

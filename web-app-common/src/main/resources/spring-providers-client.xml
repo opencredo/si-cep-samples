@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <bean id="provierPropertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="location" value="classpath:provider.properties" />
+        </bean>
+
+
+        <bean id="providerOneClient" class="org.opencredo.provider.rest.QuoteProviderOneClientImpl">
+            <constructor-arg value="${provider.rest.uri}" />
+            <constructor-arg ref="restTemplate" />
+        </bean>
+
+        <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
+
+
+</beans>

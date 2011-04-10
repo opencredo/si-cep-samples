@@ -1,6 +1,6 @@
 package org.opencredo.provider.rest;
 
-import org.opencredo.provider.DataProviderClient;
+import org.opencredo.provider.QuoteProviderClient;
 import org.opencredo.quote.domain.*;
 import org.opencredo.quote.domain.dto.*;
 import org.springframework.http.HttpEntity;
@@ -10,13 +10,13 @@ import org.springframework.web.client.RestOperations;
 
 import java.net.URI;
 
-public class DataProviderOneClientImpl implements DataProviderClient {
+public class QuoteProviderOneClientImpl implements QuoteProviderClient {
 
     private final URI baseUri;
 
     private final RestOperations restOperations;
 
-    public DataProviderOneClientImpl(URI baseUri, RestOperations restOperations) {
+    public QuoteProviderOneClientImpl(URI baseUri, RestOperations restOperations) {
         this.baseUri = baseUri;
         this.restOperations = restOperations;
     }
