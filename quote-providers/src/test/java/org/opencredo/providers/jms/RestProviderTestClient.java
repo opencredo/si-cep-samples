@@ -66,5 +66,4 @@ public class RestProviderTestClient {
 
     private static final int annualMileage = 5000;
 
-
 }

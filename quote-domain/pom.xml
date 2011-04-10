@@ -10,8 +10,7 @@
   <groupId>org.opencredo</groupId>
   <artifactId>quote-domain</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>quote-domain</name>
-  <url>http://maven.apache.org</url>
+  <name>Quote Domain</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

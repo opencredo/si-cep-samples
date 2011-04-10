@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.opencredo</groupId>
     <artifactId>si-cep-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
+    <name>SI CEP Reactor POM</name>
     <modules>
-        <module>quote-webapp-no-si</module>
-        <module>quote-providers</module>
-        <module>quote-domain</module>
-    </modules>
+		    <module>quote-domain</module>
+    		<module>quote-providers</module>
+	        <module>web-app-common</module>
+			<module>quote-webapp-no-si</module>
+  </modules>
 
     <properties>
         <spring.version>3.0.5.RELEASE</spring.version>

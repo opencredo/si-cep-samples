@@ -9,6 +9,8 @@ public class CreateQuoteResponse {
 
     private MonetaryAmountDTO monetaryAmountDTO;
 
+    private String providerName;
+
     public CarDTO getCarDTO() {
         return carDTO;
     }
@@ -31,5 +33,13 @@ public class CreateQuoteResponse {
 
     public void setMonetaryAmountDTO(MonetaryAmountDTO monetaryAmountDTO) {
         this.monetaryAmountDTO = monetaryAmountDTO;
+    }
+
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
     }
 }
