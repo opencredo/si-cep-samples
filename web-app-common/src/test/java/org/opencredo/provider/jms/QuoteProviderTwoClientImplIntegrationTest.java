@@ -1,6 +1,6 @@
 package org.opencredo.provider.jms;
 
-import static org.opencredo.provider.jms.TestData.*;
+import static org.opencredo.provider.TestData.*;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -11,18 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.jms.core.JmsOperations;
-import org.springframework.jms.core.JmsTemplate;
-import org.springframework.scheduling.config.TaskExecutorFactoryBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import sun.misc.GC;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
-import java.math.BigDecimal;
-import java.util.StringTokenizer;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -1,4 +1,4 @@
-package org.opencredo.provider.jms;
+package org.opencredo.provider;
 
 import org.opencredo.quote.domain.*;
 

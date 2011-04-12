@@ -99,7 +99,8 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.22</version>
                 <configuration>
-                    <connectors>
+                    <contextPath>quote-providers</contextPath>
+                     <connectors>
                         <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
                             <port>8080</port>
                             <maxIdleTime>60000</maxIdleTime>
