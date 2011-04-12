@@ -28,6 +28,7 @@
 
     <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="receiveTimeout" value="2000" />
+        <property name="connectionFactory" ref="jmsConnectionFactory" />
     </bean>
 
 
