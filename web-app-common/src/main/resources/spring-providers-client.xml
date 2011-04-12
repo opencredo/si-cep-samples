@@ -3,28 +3,39 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-        <bean id="provierPropertyPlaceholder" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-            <property name="location" value="classpath:provider.properties" />
-        </bean>
+    <bean id="provierPropertyPlaceholder"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:provider.properties"/>
+    </bean>
 
 
-        <bean id="providerOneClient" class="org.opencredo.provider.rest.QuoteProviderOneClientImpl">
-            <constructor-arg value="${provider.rest.uri}" />
-            <constructor-arg ref="restTemplate" />
-        </bean>
+    <bean id="providerOneClient" class="org.opencredo.provider.rest.QuoteProviderOneClientImpl">
+        <constructor-arg value="${provider.rest.uri}"/>
+        <constructor-arg ref="restTemplate"/>
+    </bean>
 
-        <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
-
-
-        <bean id="providerTwoClient" class="org.opencredo.provider.jms.QuoteProviderTwoClientImpl">
-            <constructor-arg index="0" value="${provider.jms.queue.request}" />
-            <constructor-arg index="1" ref="jmsOperations" />
-        </bean>
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
 
 
-        <bean id="jmsOperations" class="org.springframework.jms.core.JmsTemplate">
-            <property name="receiveTimeout" value="2000" />
-        </bean>
+    <bean id="providerTwoClient" class="org.opencredo.provider.jms.QuoteProviderTwoClientImpl">
+        <constructor-arg index="0" value="${provider.jms.queue.request}"/>
+        <constructor-arg index="1" ref="jmsOperations"/>
+    </bean>
+
+
+    <bean id="jmsOperations" class="org.springframework.jms.core.JmsTemplate">
+        <property name="receiveTimeout" value="2000"/>
+        <property name="connectionFactory" ref="jmsConnectionFactory"/>
+    </bean>
+
+
+    <bean id="jmsConnectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <constructor-arg>
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <constructor-arg value="tcp://localhost:61616"/>
+            </bean>
+        </constructor-arg>
+    </bean>
 
 
 </beans>

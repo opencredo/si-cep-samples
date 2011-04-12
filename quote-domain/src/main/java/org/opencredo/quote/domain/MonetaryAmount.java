@@ -40,9 +40,7 @@ public class MonetaryAmount implements Serializable {
 
     @Override
     public String toString() {
-        return "MonetaryAmount{" +
-                "amount=" + amount +
-                '}';
+        return amount.toString();
     }
 }
 

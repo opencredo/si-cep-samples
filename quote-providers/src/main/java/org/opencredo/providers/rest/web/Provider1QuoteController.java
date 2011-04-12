@@ -48,7 +48,7 @@ public class Provider1QuoteController {
         response.setAplicant(personDTO);
 
         response.setMonetaryAmountDTO(new MonetaryAmountDTO(quote.getQuotedAnnualPrice().asBigDecimal()));
-
+        response.setProviderName(PROVIDER_NAME);
         return response;
     }
 
