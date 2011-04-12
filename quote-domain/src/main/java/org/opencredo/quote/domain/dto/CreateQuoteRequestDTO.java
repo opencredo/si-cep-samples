@@ -1,6 +1,6 @@
 package org.opencredo.quote.domain.dto;
 
-public class CreateQuoteRequest {
+public class CreateQuoteRequestDTO {
     private PersonDTO applicant;
     private CarDTO car;
 

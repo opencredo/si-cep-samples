@@ -1,7 +1,9 @@
 package org.opencredo.quote.domain;
 
 
-public class QuoteRequest {
+import java.io.Serializable;
+
+public class QuoteRequest implements Serializable{
 
     private final Car car;
 

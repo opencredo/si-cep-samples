@@ -22,17 +22,17 @@ public class Provider1QuoteController {
     private QuoteService quoteService;
 
     @RequestMapping(value = "/quote", method = RequestMethod.POST)
-    public HttpEntity<CreateQuoteResponse> createQuote(@RequestBody CreateQuoteRequest request) {
+    public HttpEntity<CreateQuoteResponseDTO> createQuote(@RequestBody CreateQuoteRequestDTO request) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         Quote quote = quoteService.createQuote(PROVIDER_NAME, getPerson(request), getCar(request));
-        ResponseEntity<CreateQuoteResponse> response = new ResponseEntity<CreateQuoteResponse>(mapToDTO(quote), headers, HttpStatus.CREATED);
+        ResponseEntity<CreateQuoteResponseDTO> response = new ResponseEntity<CreateQuoteResponseDTO>(mapToDTO(quote), headers, HttpStatus.CREATED);
         return response;
     }
 
 
-    protected CreateQuoteResponse mapToDTO(Quote quote) {
-        CreateQuoteResponse response = new CreateQuoteResponse();
+    protected CreateQuoteResponseDTO mapToDTO(Quote quote) {
+        CreateQuoteResponseDTO response = new CreateQuoteResponseDTO();
 
         CarDTO carDTO = new CarDTO();
         carDTO.setMakeAndModel(quote.getApplicantsCar().getMakeAndModel());
@@ -52,12 +52,12 @@ public class Provider1QuoteController {
         return response;
     }
 
-    private Person getPerson(CreateQuoteRequest request) {
+    private Person getPerson(CreateQuoteRequestDTO request) {
         PersonDTO dto = request.getApplicant();
         return new Person(dto.getAge(), dto.getYearsOfNoClaimsBonus(), dto.getAnnualMileage());
     }
 
-    private Car getCar(CreateQuoteRequest request) {
+    private Car getCar(CreateQuoteRequestDTO request) {
         CarDTO dto = request.getCar();
         return new Car(dto.getRegistration(), dto.getMakeAndModel(),
                 new MonetaryAmount(dto.getValueOfCar().getAmount()));

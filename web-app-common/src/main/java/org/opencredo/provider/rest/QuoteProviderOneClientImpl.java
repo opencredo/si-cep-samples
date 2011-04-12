@@ -25,16 +25,16 @@ public class QuoteProviderOneClientImpl implements QuoteProviderClient {
     public Quote getQuote(QuoteRequest quoteRequest) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        CreateQuoteRequest quoteRequestDto = mapToRequestDto(quoteRequest);
-        HttpEntity<CreateQuoteRequest> entityRequest =
-                new HttpEntity<CreateQuoteRequest>(quoteRequestDto, headers);
-        CreateQuoteResponse responseDto = restOperations.postForEntity(baseUri, entityRequest, CreateQuoteResponse.class).getBody();
+        CreateQuoteRequestDTO quoteRequestDto = mapToRequestDto(quoteRequest);
+        HttpEntity<CreateQuoteRequestDTO> entityRequest =
+                new HttpEntity<CreateQuoteRequestDTO>(quoteRequestDto, headers);
+        CreateQuoteResponseDTO responseDto = restOperations.postForEntity(baseUri, entityRequest, CreateQuoteResponseDTO.class).getBody();
 
         return mapDtoResponseToQuote(responseDto);
     }
 
 
-    protected CreateQuoteRequest mapToRequestDto(QuoteRequest quoteRequest) {
+    protected CreateQuoteRequestDTO mapToRequestDto(QuoteRequest quoteRequest) {
         PersonDTO personDTO = new PersonDTO();
         personDTO.setAge(quoteRequest.getApplicant().getAge());
         personDTO.setAnnualMileage(quoteRequest.getApplicant().getAnnualMileage());
@@ -44,13 +44,13 @@ public class QuoteProviderOneClientImpl implements QuoteProviderClient {
         carDTO.setRegistration(quoteRequest.getCar().getRegistration());
         carDTO.setValueOfCar(
                 new MonetaryAmountDTO(quoteRequest.getCar().getValueOfCar().asBigDecimal()));
-        CreateQuoteRequest createQuoteRequest = new CreateQuoteRequest();
+        CreateQuoteRequestDTO createQuoteRequest = new CreateQuoteRequestDTO();
         createQuoteRequest.setApplicant(personDTO);
         createQuoteRequest.setCar(carDTO);
         return createQuoteRequest;
     }
 
-    protected Quote mapDtoResponseToQuote(CreateQuoteResponse response){
+    protected Quote mapDtoResponseToQuote(CreateQuoteResponseDTO response){
         CarDTO carDTO = response.getCarDTO();
         Car car = new Car(carDTO.getRegistration(),carDTO.getMakeAndModel(),
                 new MonetaryAmount(carDTO.getValueOfCar().getAmount()));

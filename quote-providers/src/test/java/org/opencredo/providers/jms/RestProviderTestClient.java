@@ -37,14 +37,14 @@ public class RestProviderTestClient {
         carDTO.setRegistration(carReg);
         carDTO.setValueOfCar(new MonetaryAmountDTO(new BigDecimal(carValue)));
 
-        CreateQuoteRequest createQuoteRequest = new CreateQuoteRequest();
+        CreateQuoteRequestDTO createQuoteRequest = new CreateQuoteRequestDTO();
         createQuoteRequest.setApplicant(personDTO);
         createQuoteRequest.setCar(carDTO);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        HttpEntity<CreateQuoteRequest> entityRequest = new HttpEntity<CreateQuoteRequest>(createQuoteRequest, headers);
-        restOperations.postForEntity(BASE_URL,entityRequest, CreateQuoteResponse.class);
+        HttpEntity<CreateQuoteRequestDTO> entityRequest = new HttpEntity<CreateQuoteRequestDTO>(createQuoteRequest, headers);
+        restOperations.postForEntity(BASE_URL,entityRequest, CreateQuoteResponseDTO.class);
     }
 
     public static void main(String[] args) {
