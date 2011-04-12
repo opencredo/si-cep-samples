@@ -16,4 +16,15 @@
         <bean id="restTemplate" class="org.springframework.web.client.RestTemplate" />
 
 
+        <bean id="providerTwoClient" class="org.opencredo.provider.jms.QuoteProviderTwoClientImpl">
+            <constructor-arg index="0" value="${provider.jms.queue.request}" />
+            <constructor-arg index="1" ref="jmsOperations" />
+        </bean>
+
+
+        <bean id="jmsOperations" class="org.springframework.jms.core.JmsTemplate">
+            <property name="receiveTimeout" value="2000" />
+        </bean>
+
+
 </beans>
