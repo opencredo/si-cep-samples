@@ -15,10 +15,11 @@
     <name>Quote Webapp Version One</name>
     <url>http://maven.apache.org</url>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
+      <dependency>
+          <groupId>org.opencredo</groupId>
+          <artifactId>web-app-common</artifactId>
+          <version>${parent.version}</version>
+      </dependency>
     </dependencies>
     <build>
         <finalName>quote-webapp-no-si</finalName>
