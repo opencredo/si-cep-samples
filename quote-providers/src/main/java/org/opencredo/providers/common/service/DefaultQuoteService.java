@@ -19,9 +19,14 @@ public class DefaultQuoteService implements QuoteService {
     private final AtomicLong sequence = new AtomicLong(0);
     private final Map<Long, Quote> quotes = new ConcurrentHashMap<Long, Quote>();
 
+    private final QuoteCaluclationStrategy quoteCaluclationStrategy;
+
+    public DefaultQuoteService(QuoteCaluclationStrategy quoteCaluclationStrategy){
+        this.quoteCaluclationStrategy = quoteCaluclationStrategy;
+    }
+
     public Quote createQuote(String providerName,Person applicant, Car car) {
-        MonetaryAmount quotedAnnualPrice = new MonetaryAmount(
-                new BigDecimal(quoteAmountGenerator.nextInt(1000)));
+        MonetaryAmount quotedAnnualPrice = quoteCaluclationStrategy.getQuoteAmount();
         Quote quote = new Quote(providerName, applicant, car, quotedAnnualPrice);
         quotes.put(sequence.incrementAndGet(), quote);
         return quote;

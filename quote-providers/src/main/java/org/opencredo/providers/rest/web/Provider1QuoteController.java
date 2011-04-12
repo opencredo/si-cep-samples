@@ -7,6 +7,7 @@ import org.opencredo.quote.domain.Person;
 import org.opencredo.quote.domain.Quote;
 import org.opencredo.quote.domain.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,7 @@ public class Provider1QuoteController {
 
     public static final String PROVIDER_NAME = "Provider One";
 
-    @Autowired
+    @Autowired @Qualifier("randomQuoteCalculation")
     private QuoteService quoteService;
 
     @RequestMapping(value = "/quote", method = RequestMethod.POST)

@@ -7,6 +7,7 @@ import org.opencredo.quote.domain.MonetaryAmount;
 import org.opencredo.quote.domain.Person;
 import org.opencredo.quote.domain.Quote;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.xml.xpath.XPathExpression;
 import org.springframework.xml.xpath.XPathExpressionFactory;
@@ -20,7 +21,7 @@ public class Provider2MessageProcessor {
     private final QuoteService quoteService;
 
     @Autowired
-    public Provider2MessageProcessor(QuoteService quoteService) {
+    public Provider2MessageProcessor(@Qualifier("fixedRateQuoteService") QuoteService quoteService) {
         this.quoteService = quoteService;
     }
 

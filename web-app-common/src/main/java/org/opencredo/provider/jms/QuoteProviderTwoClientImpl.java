@@ -23,7 +23,6 @@ public class QuoteProviderTwoClientImpl implements QuoteProviderClient {
 
     private final String requestQueueName;
 
-
     private final JmsOperations jmsOperations;
 
     public QuoteProviderTwoClientImpl(String requestQueueName, JmsOperations jmsOperations) {

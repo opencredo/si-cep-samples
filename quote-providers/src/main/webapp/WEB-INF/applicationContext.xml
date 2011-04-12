@@ -3,8 +3,18 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="quoteService" class="org.opencredo.providers.common.service.DefaultQuoteService" />
+    <bean id="fixedRateQuoteService" class="org.opencredo.providers.common.service.DefaultQuoteService">
+        <constructor-arg>
+            <bean class="org.opencredo.providers.common.service.FixedRateQuoteCalculationStrategy"/>
+        </constructor-arg>
+    </bean>
 
-    <import resource="jms-provider.xml" />
+    <bean id="randomQuoteCalculation" class="org.opencredo.providers.common.service.DefaultQuoteService">
+        <constructor-arg>
+            <bean class="org.opencredo.providers.common.service.RandomQuoteCalculationStrategy"/>
+        </constructor-arg>
+    </bean>
+
+    <import resource="jms-provider.xml"/>
 
 </beans>
