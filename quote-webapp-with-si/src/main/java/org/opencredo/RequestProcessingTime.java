@@ -6,7 +6,6 @@ public class RequestProcessingTime {
 
     private long timeTakenForRequest;
 
-
     public RequestProcessingTime(String providerName, long timeTakenForRequest) {
         this.providerName = providerName;
         this.timeTakenForRequest = timeTakenForRequest;

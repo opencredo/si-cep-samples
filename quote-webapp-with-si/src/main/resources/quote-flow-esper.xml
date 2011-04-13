@@ -13,7 +13,7 @@
 						http://www.springframework.org/schema/integration/spring-integration-1.0.xsd">
 
    <si-esper:wire-tap-channels default-wire-tap="wiretap">
-		<si-esper:channel pattern="quotes" />
+		<si-esper:channel pattern="requestProcessingTimeChannel" />
    </si-esper:wire-tap-channels>
 
 
@@ -23,14 +23,44 @@
 
 	<esper:template id="template" configuration="esper-configuration.xml">
 		<esper:statements>
-			<esper:statement epl="select count(*) as throughput from org.opencredo.esper.samples.noodlebar.domain.NoodleOrder.win:time_batch(1 second)">
+			<esper:statement epl="select avg(timeTakenForRequest), providerName from org.opencredo.RequestProcessingTime.win:time(1 second) group by providerName">
 				<esper:listeners>
-					<!-- Pass Esper messages to the throughputGateway -->
-					<esper:ref bean="throughputGateway" />
+					<esper:ref bean="dynamicRouter" />
 				</esper:listeners>
 			</esper:statement>
 		</esper:statements>
 	</esper:template>
+
+    <si:splitter id="requestSplitter" input-channel="quoteRequests"  output-channel="splitRequests" ref="splitter"/>
+
+    <bean id="splitter" class="org.opencredo.Splitter">
+        <constructor-arg>
+            <list>
+                <value>Provider One</value>
+                <value>Provider Two</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <si:channel id="splitRequests" />
+
+
+    <bean id="dynamicRouter" class="org.opencredo.DynamicRouter" >
+
+        <constructor-arg>
+            <map>
+                <entry key="Provider One" value="restOutChannel" />
+                <entry key="Provider Two" value="jmsOutboundChannel" />
+            </map>
+
+        </constructor-arg>
+    </bean>
+
+    <si:router id="esperRouter" ref="dynamicRouter" method="routeToProvider" input-channel="splitRequests" />
+
+
+
+
 
 
 </beans>

@@ -25,10 +25,10 @@
     <channel id="quoteRequests"/>
 
 
-    <recipient-list-router input-channel="quoteRequests" apply-sequence="true">
-        <recipient channel="jmsOutboundChannel"/>
-        <recipient channel="restOutChannel" />
-    </recipient-list-router>
+    <!--<recipient-list-router input-channel="quoteRequests" apply-sequence="true">-->
+        <!--<recipient channel="jmsOutboundChannel"/>-->
+        <!--<recipient channel="restOutChannel" />-->
+    <!--</recipient-list-router>-->
 
     <channel id="jmsOutboundChannel" >
         <queue/>
@@ -53,7 +53,7 @@
     <channel id="quotes" >
         <interceptors>
             <beans:bean id="requestTimePublishingInterceptor" class="org.opencredo.RequestTimePublishingInterceptor" >
-                <beans:constructor-arg ref="requestProcessingChannel" />
+                <beans:constructor-arg ref="requestProcessingTimeChannel" />
             </beans:bean>
         </interceptors>
     </channel>
@@ -66,9 +66,12 @@
         <interval-trigger interval="200" time-unit="MILLISECONDS" />
     </poller>
 
-    <channel id="requestProcessingChannel">
+    <channel id="requestProcessingTimeChannel">
         <queue />
     </channel>
+
+
+    <beans:import resource="quote-flow-esper.xml" />
 
 
 

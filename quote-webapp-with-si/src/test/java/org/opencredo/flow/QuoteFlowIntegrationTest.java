@@ -16,7 +16,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:quote-flow-integration-test.xml")
-@Ignore
+
 public class QuoteFlowIntegrationTest {
 
     @Autowired
@@ -24,13 +24,11 @@ public class QuoteFlowIntegrationTest {
 
 
     @Test
-    public void endToEndTest(){
+    public void endToEndTest() throws Exception {
         List<Quote> quotes = quoteService.getQuotes(TestData.buildTestQuoteRequest());
         assertNotNull(quotes);
         assertEquals("Wrong number of quotes received ", 2, quotes.size());
+        Thread.sleep(500);
     }
-
-
-
 
 }
