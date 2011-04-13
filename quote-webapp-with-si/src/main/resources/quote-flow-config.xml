@@ -13,11 +13,17 @@
 
     <beans:import resource="spring-providers-client.xml"/>
 
+    <gateway id="quoteGateway" service-interface="org.opencredo.provider.QuoteClientService"
+                 default-request-channel="quoteRequestsNoRequestTime" default-reply-timeout="5000"/>
+
+    <channel id="quoteRequestsNoRequestTime"/>
+
+    <header-enricher input-channel="quoteRequestsNoRequestTime" output-channel="quoteRequests" >
+        <header name="REQUEST_TIME" expression="headers.timestamp" />
+    </header-enricher>
 
     <channel id="quoteRequests"/>
 
-    <gateway id="quoteGateway" service-interface="org.opencredo.provider.QuoteClientService"
-             default-request-channel="quoteRequests" default-reply-timeout="5000"/>
 
     <recipient-list-router input-channel="quoteRequests" apply-sequence="true">
         <recipient channel="jmsOutboundChannel"/>
@@ -44,13 +50,26 @@
     <service-activator id="restOutServiceActivator" input-channel="restOutChannel" output-channel="quotes"
                        ref="providerOneClient" method="getQuote" />
 
-    <channel id="quotes" />
+    <channel id="quotes" >
+        <interceptors>
+            <beans:bean id="requestTimePublishingInterceptor" class="org.opencredo.RequestTimePublishingInterceptor" >
+                <beans:constructor-arg ref="requestProcessingChannel" />
+            </beans:bean>
+        </interceptors>
+    </channel>
+
+
 
     <aggregator id="quoteAggregator" input-channel="quotes" />
 
     <poller default="true">
         <interval-trigger interval="200" time-unit="MILLISECONDS" />
     </poller>
+
+    <channel id="requestProcessingChannel">
+        <queue />
+    </channel>
+
 
 
 </beans:beans>
