@@ -46,6 +46,12 @@
             <artifactId>spring-test</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.opencredo.esper</groupId>
+            <artifactId>esper-si-support</artifactId>
+            <version>2.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>quote-webapp-with-si</finalName>

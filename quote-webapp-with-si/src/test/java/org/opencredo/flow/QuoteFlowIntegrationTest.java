@@ -2,6 +2,7 @@ package org.opencredo.flow;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.opencredo.provider.QuoteClientService;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:quote-flow-integration-test.xml")
+@Ignore
 public class QuoteFlowIntegrationTest {
 
     @Autowired
