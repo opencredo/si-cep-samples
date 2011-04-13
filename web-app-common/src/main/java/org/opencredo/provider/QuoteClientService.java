@@ -5,7 +5,7 @@ import org.opencredo.quote.domain.QuoteRequest;
 
 import java.util.List;
 
-public interface QuoteService {
+public interface QuoteClientService {
 
     public List<Quote> getQuotes(QuoteRequest quoteRequest);
 

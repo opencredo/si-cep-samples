@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/integration"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:jms="http://www.springframework.org/schema/integration/jms"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/integration
+			http://www.springframework.org/schema/integration/spring-integration.xsd
+			http://www.springframework.org/schema/integration/jms
+			http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd">
+
+
+    <beans:import resource="spring-providers-client.xml"/>
+
+
+    <channel id="quoteRequests"/>
+
+    <gateway id="quoteGateway" service-interface="org.opencredo.provider.QuoteClientService"
+             default-request-channel="quoteRequests" default-reply-timeout="5000"/>
+
+    <recipient-list-router input-channel="quoteRequests" apply-sequence="true">
+        <recipient channel="jmsOutboundChannel"/>
+        <recipient channel="restOutChannel" />
+    </recipient-list-router>
+
+    <channel id="jmsOutboundChannel" >
+        <queue/>
+    </channel>
+
+    <transformer input-channel="jmsOutboundChannel" output-channel="jmsDocsChannel"
+                 ref="providerTwoClient" method="buildRequestDocument" />
+
+    <channel id="jmsDocsChannel" />
+    <jms:outbound-gateway id="jmsOutboundGateway" request-channel="jmsDocsChannel"
+                          connection-factory="jmsConnectionFactory"
+                          request-destination-name="${provider.jms.queue.request}"
+                          reply-channel="quotes"  />
+
+    <channel id="restOutChannel">
+        <queue/>
+    </channel>
+
+    <service-activator id="restOutServiceActivator" input-channel="restOutChannel" output-channel="quotes"
+                       ref="providerOneClient" method="getQuote" />
+
+    <channel id="quotes" />
+
+    <aggregator id="quoteAggregator" input-channel="quotes" />
+
+    <poller default="true">
+        <interval-trigger interval="200" time-unit="MILLISECONDS" />
+    </poller>
+
+
+</beans:beans>
