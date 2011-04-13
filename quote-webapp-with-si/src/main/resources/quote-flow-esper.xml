@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:esper="http://www.opencredo.com/schema/esper"
-	xmlns:si-esper="http://www.opencredo.com/schema/esper/integration"
-	xmlns:si="http://www.springframework.org/schema/integration"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:esper="http://www.opencredo.com/schema/esper"
+       xmlns:si-esper="http://www.opencredo.com/schema/esper/integration"
+       xmlns:si="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 						http://www.opencredo.com/schema/esper
 						http://www.opencredo.com/schema/esper/opencredo-esper-3.0.xsd
@@ -12,26 +12,24 @@
 						http://www.springframework.org/schema/integration
 						http://www.springframework.org/schema/integration/spring-integration-1.0.xsd">
 
-   <si-esper:wire-tap-channels default-wire-tap="wiretap">
-		<si-esper:channel pattern="requestProcessingTimeChannel" />
-   </si-esper:wire-tap-channels>
+    <si-esper:wire-tap-channels default-wire-tap="wiretap">
+        <si-esper:channel pattern="requestProcessingTimeChannel"/>
+    </si-esper:wire-tap-channels>
 
+    <si-esper:wire-tap id="wiretap" sourceId="defaultWiretap" template-ref="template" post-send="true"/>
 
+    <esper:template id="template" configuration="esper-configuration.xml">
+        <esper:statements>
+            <esper:statement
+                    epl="select avg(timeTakenForRequest), providerName from org.opencredo.RequestProcessingTime.win:time(1 second) group by providerName">
+                <esper:listeners>
+                    <esper:ref bean="splitter"/>
+                </esper:listeners>
+            </esper:statement>
+        </esper:statements>
+    </esper:template>
 
-
-	<si-esper:wire-tap id="wiretap" sourceId="defaultWiretap" template-ref="template" post-send="true"/>
-
-	<esper:template id="template" configuration="esper-configuration.xml">
-		<esper:statements>
-			<esper:statement epl="select avg(timeTakenForRequest), providerName from org.opencredo.RequestProcessingTime.win:time(1 second) group by providerName">
-				<esper:listeners>
-					<esper:ref bean="dynamicRouter" />
-				</esper:listeners>
-			</esper:statement>
-		</esper:statements>
-	</esper:template>
-
-    <si:splitter id="requestSplitter" input-channel="quoteRequests"  output-channel="splitRequests" ref="splitter"/>
+    <si:splitter id="requestSplitter" input-channel="quoteRequests" output-channel="splitRequests" ref="splitter" method="split"/>
 
     <bean id="splitter" class="org.opencredo.Splitter">
         <constructor-arg>
@@ -42,25 +40,22 @@
         </constructor-arg>
     </bean>
 
-    <si:channel id="splitRequests" />
+    <si:channel id="splitRequests"/>
 
 
-    <bean id="dynamicRouter" class="org.opencredo.DynamicRouter" >
+    <bean id="dynamicRouter" class="org.opencredo.DynamicRouter">
 
         <constructor-arg>
             <map>
-                <entry key="Provider One" value="restOutChannel" />
-                <entry key="Provider Two" value="jmsOutboundChannel" />
+                <entry key="Provider One" value="restOutChannel"/>
+                <entry key="Provider Two" value="jmsOutboundChannel"/>
             </map>
 
         </constructor-arg>
     </bean>
 
-    <si:router id="esperRouter" ref="dynamicRouter" method="routeToProvider" input-channel="splitRequests" />
-
-
-
-
+    <si:router id="esperRouter" ref="dynamicRouter" method="routeToProvider"
+               input-channel="splitRequests" resolution-required="false"/>
 
 
 </beans>

@@ -14,7 +14,7 @@
     <beans:import resource="spring-providers-client.xml"/>
 
     <gateway id="quoteGateway" service-interface="org.opencredo.provider.QuoteClientService"
-                 default-request-channel="quoteRequestsNoRequestTime" default-reply-timeout="5000"/>
+                 default-request-channel="quoteRequestsNoRequestTime" />
 
     <channel id="quoteRequestsNoRequestTime"/>
 
@@ -60,7 +60,15 @@
 
 
 
-    <aggregator id="quoteAggregator" input-channel="quotes" />
+    <aggregator id="quoteAggregator" input-channel="quotes" send-partial-result-on-expiry="true" send-timeout="2"
+                discard-channel="quotes" release-strategy="releaseStrategy" />
+
+    <beans:bean id="releaseStrategy" class="org.springframework.integration.aggregator.TimeoutCountSequenceSizeReleaseStrategy">
+        <beans:constructor-arg value="10" index="0" />
+        <beans:constructor-arg value="5000" index="1" />
+    </beans:bean>
+
+
 
     <poller default="true">
         <interval-trigger interval="200" time-unit="MILLISECONDS" />
